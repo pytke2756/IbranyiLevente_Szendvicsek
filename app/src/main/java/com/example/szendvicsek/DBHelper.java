@@ -40,4 +40,19 @@ public class DBHelper extends SQLiteOpenHelper {
         onCreate(db);
     }
 
+    public boolean rogzites(String nev, String leiras, int ido, int ar){
+        SQLiteDatabase db = this.getWritableDatabase();
+        ContentValues values = new ContentValues();
+        values.put(COL_NEV, nev);
+        values.put(COL_LEIRAS, leiras);
+        values.put(COL_ELKESZITES, ido);
+        values.put(COL_AR, ar);
+        return db.insert(TABLE_NAME, null, values) != -1;
+    }
+
+
+    public Cursor listaz(String ar) {
+        SQLiteDatabase db = this.getReadableDatabase();
+        return db.rawQuery("SELECT szendvicsek FROM szendvicsek WHERE ar <= ?", new String[]{ar});
+    }
 }
